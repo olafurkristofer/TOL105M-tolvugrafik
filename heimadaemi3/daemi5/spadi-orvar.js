@@ -29,7 +29,7 @@ window.onload = function init() {
         vec2( -0.1, -0.86 ),
         vec2(  0.1, -0.86 ),
         vec2(  0.1, -0.9 ) 
-    ];
+    ]; 
     
     // Load the data into the GPU
     var bufferId = gl.createBuffer();
