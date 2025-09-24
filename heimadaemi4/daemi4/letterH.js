@@ -174,7 +174,7 @@ function render()
 
     // Neðri miðju hilla
     mv1 = mult(mv, translate(0.0, -0.2635, 0.0))
-    mv1 = mult( mv1, scalem( 0.05, 0.473, 0.7 ) );
+    mv1 = mult( mv1, scalem( 0.05, 0.473, 0.7) );
     gl.uniformMatrix4fv(matrixLoc, false, flatten(mv1));
     gl.drawArrays( gl.TRIANGLES, 0, numVertices );
 
