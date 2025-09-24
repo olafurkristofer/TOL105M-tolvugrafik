@@ -139,42 +139,42 @@ function render()
 
     // Vinstri hliðin
     mv1 = mult( mv, translate( -0.5, 0.0, 0.0 ) );
-    mv1 = mult( mv1, scalem( 0.1, 1.0, 0.1 ) );
+    mv1 = mult( mv1, scalem( 0.1, 1.0, 0.7 ) );
     gl.uniformMatrix4fv(matrixLoc, false, flatten(mv1));
     gl.drawArrays( gl.TRIANGLES, 0, numVertices );
 
     // Hægri hliðin
     mv1 = mult( mv, translate( 0.5, 0.0, 0.0 ) );
-    mv1 = mult( mv1, scalem( 0.1, 1.0, 0.1 ) );
+    mv1 = mult( mv1, scalem( 0.1, 1.0, 0.7) );
     gl.uniformMatrix4fv(matrixLoc, false, flatten(mv1));
     gl.drawArrays( gl.TRIANGLES, 0, numVertices );
 
     // Top platan
     mv1 = mult (mv, translate(0.0, 0.552, 0.0))
-    mv1 = mult( mv1, scalem( 1.1, 0.1, 0.1 ) );
+    mv1 = mult( mv1, scalem( 1.1, 0.1, 0.7 ) );
     gl.uniformMatrix4fv(matrixLoc, false, flatten(mv1));
     gl.drawArrays( gl.TRIANGLES, 0, numVertices );
 
     // Botn platan
     mv1 = mult (mv, translate(0.0, -0.552, 0.0))
-    mv1 = mult( mv1, scalem( 1.1, 0.1, 0.1 ) );
+    mv1 = mult( mv1, scalem( 1.1, 0.1, 0.7 ) );
     gl.uniformMatrix4fv(matrixLoc, false, flatten(mv1));
     gl.drawArrays( gl.TRIANGLES, 0, numVertices );
 
     // miðju hillan
-    mv1 = mult( mv, scalem( 0.893, 0.05, 0.1 ) );
+    mv1 = mult( mv, scalem( 0.893, 0.05, 0.7 ) );
     gl.uniformMatrix4fv(matrixLoc, false, flatten(mv1));
     gl.drawArrays( gl.TRIANGLES, 0, numVertices );
 
     // Efri miðju hilla
     mv1 = mult(mv, translate(0.0, 0.2635, 0.0))
-    mv1 = mult( mv1, scalem( 0.05, 0.473, 0.1 ) );
+    mv1 = mult( mv1, scalem( 0.05, 0.473, 0.7 ) );
     gl.uniformMatrix4fv(matrixLoc, false, flatten(mv1));
     gl.drawArrays( gl.TRIANGLES, 0, numVertices );
 
     // Neðri miðju hilla
     mv1 = mult(mv, translate(0.0, -0.2635, 0.0))
-    mv1 = mult( mv1, scalem( 0.05, 0.473, 0.1 ) );
+    mv1 = mult( mv1, scalem( 0.05, 0.473, 0.7 ) );
     gl.uniformMatrix4fv(matrixLoc, false, flatten(mv1));
     gl.drawArrays( gl.TRIANGLES, 0, numVertices );
 
