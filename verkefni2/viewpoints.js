@@ -40,10 +40,10 @@ var bridge7 = vec4(0.882, 0.533, 0.29, 1.0); // desert gold
 var bridge8 = vec4(0.941, 0.6, 0.333, 1.0); // sunlit amber
 
 // Colors for the plane
-var PLANE_BODY = vec4(0.82, 0.78, 0.70, 1.0);     // light beige fuselage
-var PLANE_WINGS = vec4(0.36, 0.54, 0.71, 1.0);    // desaturated blue
-var PLANE_TAIL = vec4(0.73, 0.39, 0.23, 1.0);     // warm brick accent
-var PLANE_CANOPY = vec4(0.55, 0.73, 0.88, 1.0);   // glassy sky blue
+var PLANE_BODY = vec4(0.82, 0.78, 0.7, 1.0); // light beige fuselage
+var PLANE_WINGS = vec4(0.36, 0.54, 0.71, 1.0); // desaturated blue
+var PLANE_TAIL = vec4(0.73, 0.39, 0.23, 1.0); // warm brick accent
+var PLANE_CANOPY = vec4(0.55, 0.73, 0.88, 1.0); // glassy sky blue
 
 //Colors for the houses
 //TALL House
@@ -65,7 +65,7 @@ var numStripeVertices = 6 * Math.ceil(TRACK_PTS / 2);
 // varables for the plane
 var planeT = 0.0;
 var planeSpeed = 0.01;
-var planeA = 120.0; 
+var planeA = 120.0;
 var planeHeight = 28.0;
 
 // variables for moving car
@@ -83,11 +83,10 @@ var car2X, car2Y;
 // current viewpoint
 var view = 1;
 
-// variables for mouseLook 
+// variables for mouseLook
 var speed = 1.0;
 var userX = -70.0;
 var userY = -70.0;
-
 var yaw = 0.0;
 var pitch = 0.0;
 
@@ -240,9 +239,9 @@ window.onload = function init() {
   // Event listener for keyboard
   window.addEventListener('keydown', function (e) {
     switch (e.keyCode) {
-        case 48:
-            view = 0;
-            break;
+      case 48:
+        view = 0;
+        break;
       case 49: // 1: distant and stationary viewpoint
         view = 1;
         document.getElementById('Viewpoint').innerHTML =
@@ -293,39 +292,37 @@ window.onload = function init() {
         document.getElementById('Height').innerHTML = 'Viðbótarhæð: ' + height;
         break;
 
-        //Movement for the mouse look
-        case 87: // W 
-            userX += Math.cos(yaw) * speed;
-            userY += Math.sin(yaw) * speed;
-            break;
+      //Movement for the mouse look
+      case 87: // W
+        userX += Math.cos(yaw) * speed;
+        userY += Math.sin(yaw) * speed;
+        break;
 
-        case 83: // S
-            userX -= Math.cos(yaw) * speed;
-            userY -= Math.sin(yaw) * speed;            
-            break;
-        
-        case 65: // A
-            userX += -Math.sin(yaw) * speed;
-            userY += Math.cos(yaw) * speed;
-            break;
+      case 83: // S
+        userX -= Math.cos(yaw) * speed;
+        userY -= Math.sin(yaw) * speed;
+        break;
 
-        case 68: // D
-            userX += Math.sin(yaw) * speed;
-            userY += -Math.cos(yaw) * speed;
-            break;
+      case 65: // A
+        userX += -Math.sin(yaw) * speed;
+        userY += Math.cos(yaw) * speed;
+        break;
 
+      case 68: // D
+        userX += Math.sin(yaw) * speed;
+        userY += -Math.cos(yaw) * speed;
+        break;
     }
   });
-
 
   window.addEventListener('mousemove', (e) => {
     if (view !== 0) return;
 
-    yaw   -= e.movementX * 0.002;
+    yaw -= e.movementX * 0.002;
     pitch -= e.movementY * 0.002;
-  
+
     const maxPitch = 1.55;
-    if (pitch >  maxPitch) pitch =  maxPitch;
+    if (pitch > maxPitch) pitch = maxPitch;
     if (pitch < -maxPitch) pitch = -maxPitch;
   });
   render();
@@ -387,7 +384,7 @@ function createBridge(mv) {
   var mv1 = mv;
   //left side blocks
   gl.uniform4fv(colorLoc, bridge1);
-  //The original posistion and size of the block
+  //The original posistion and size of the left block
   mv = mult(mv, translate(0, -120, 1));
   mv = mult(mv, scalem(5, 9, 2));
 
@@ -493,13 +490,13 @@ function house(x, y, size, mv, color, rColor) {
   gl.uniformMatrix4fv(mvLoc, false, flatten(mv));
   gl.drawArrays(gl.TRIANGLES, 0, numCubeVertices);
 
-  //roofH er stærð á þakinu
+  //size of the roof
   var roofH = 0.4 * size;
   gl.uniform4fv(colorLoc, rColor);
 
-  //Setur þakið aðeins lægra en húsið til að fela opið á mill
+  //Set the roof lower than the house
   mv1 = mult(mv1, translate(x, y, size - 0.4));
-  //Stækkar þakið þannig það liggi út fyrir húsið
+  //extend the roof over the house
   mv1 = mult(mv1, scalem(size + 2, size + 2, roofH));
 
   gl.bindBuffer(gl.ARRAY_BUFFER, roofBuffer);
@@ -523,13 +520,13 @@ function houseTall(x, y, size, floors, mv, color, rColor) {
     gl.drawArrays(gl.TRIANGLES, 0, numCubeVertices);
   }
 
-  //roofH er stærð á þakinu
+  //Set the roof lower than the house
   var roofH = 0.4 * size;
   gl.uniform4fv(colorLoc, rColor);
 
-  //Setur þakið aðeins lægra en húsið til að fela opið á mill
+  //Set the roof lower than the house
   mv1 = mult(mv1, translate(x, y, floors * size - 0.4));
-  //Stækkar þakið þannig það liggi út fyrir húsið
+  //extend the roof over the house
   mv1 = mult(mv1, scalem(size + 2, size + 2, roofH));
 
   gl.bindBuffer(gl.ARRAY_BUFFER, roofBuffer);
@@ -561,7 +558,7 @@ function houseL(x, y, size, wing, mv, color, rColor) {
   gl.uniformMatrix4fv(mvLoc, false, flatten(mvW));
   gl.drawArrays(gl.TRIANGLES, 0, numCubeVertices);
 
-  //roofH er stærð á þakinu
+  //Set the roof lower than the house
   var roofH = 0.4 * size;
   gl.uniform4fv(colorLoc, rColor);
 
@@ -655,7 +652,7 @@ function drawPlane(mv) {
   gl.bindBuffer(gl.ARRAY_BUFFER, cubeBuffer);
   gl.vertexAttribPointer(vPosition, 3, gl.FLOAT, false, 0, 0);
 
-  // Fuselage
+  // Body
   gl.uniform4fv(colorLoc, PLANE_BODY);
   var body = mult(mv, scalem(18.0, 3.2, 3.0));
   body = mult(body, translate(0.0, 0.0, 0.5));
@@ -669,37 +666,23 @@ function drawPlane(mv) {
   gl.uniformMatrix4fv(mvLoc, false, flatten(wings));
   gl.drawArrays(gl.TRIANGLES, 0, numCubeVertices);
 
-  // Horizontal tailplane
+  // tail
   gl.uniform4fv(colorLoc, PLANE_TAIL);
   var tailH = mult(mv, translate(-7.5, 0.0, 0.6));
   tailH = mult(tailH, scalem(2.4, 10.0, 0.8));
   gl.uniformMatrix4fv(mvLoc, false, flatten(tailH));
   gl.drawArrays(gl.TRIANGLES, 0, numCubeVertices);
-
-  // Vertical tail
-  var tailV = mult(mv, translate(-7.5, 0.0, 1.6));
-  tailV = mult(tailV, scalem(2.0, 0.8, 3.2));
-  gl.uniformMatrix4fv(mvLoc, false, flatten(tailV));
-  gl.drawArrays(gl.TRIANGLES, 0, numCubeVertices);
-
-  // Canopy (a little blue bubble)
-  gl.uniform4fv(colorLoc, PLANE_CANOPY);
-  var canopy = mult(mv, translate(3.0, 0.0, 1.8));
-  canopy = mult(canopy, scalem(4.0, 3.0, 1.5));
-  gl.uniformMatrix4fv(mvLoc, false, flatten(canopy));
-  gl.drawArrays(gl.TRIANGLES, 0, numCubeVertices);
 }
 
 function planeMovement(mv) {
-  
   planeT += planeSpeed;
-  
+
   var x = planeA * Math.sin(planeT);
   var y = planeA * Math.sin(planeT) * Math.cos(planeT);
 
   var dx = Math.cos(planeT);
   var dy = Math.cos(2.0 * planeT);
-  var headingDeg = Math.atan2(dy, dx) * 180.0 / Math.PI;
+  var headingDeg = (Math.atan2(dy, dx) * 180.0) / Math.PI;
 
   var mvPlane = mult(mv, translate(x, y, planeHeight));
   mvPlane = mult(mvPlane, rotateZ(headingDeg));
@@ -725,22 +708,22 @@ function render() {
   var mv = mat4();
   switch (view) {
     case 0:
-      var eye =vec3(userX, userY, 5);
+      var eye = vec3(userX, userY, 5);
       var dir = vec3(
-        Math.cos(yaw)*Math.cos(pitch),
+        Math.cos(yaw) * Math.cos(pitch),
         Math.sin(yaw) * Math.cos(pitch),
         Math.sin(pitch)
       );
-        mv = lookAt(eye, add(eye, dir),vec3(0.0, 0.0, 1.0));
+      mv = lookAt(eye, add(eye, dir), vec3(0.0, 0.0, 1.0));
 
-        drawScenery(mv);
-        mv1 = mult(mv, translate(carXPos, carYPos, 0.0));
-        mv1 = mult(mv1, rotateZ(-carDirection));
-        drawCar(mv1, YELLOW);
-        mv2 = mult(mv, translate(car2X, car2Y, 0));
-        mv2 = mult(mv2, rotateZ(-car2Angle));
-        drawCar(mv2, RED);
-        break;
+      drawScenery(mv);
+      mv1 = mult(mv, translate(carXPos, carYPos, 0.0));
+      mv1 = mult(mv1, rotateZ(-carDirection));
+      drawCar(mv1, YELLOW);
+      mv2 = mult(mv, translate(car2X, car2Y, 0));
+      mv2 = mult(mv2, rotateZ(-car2Angle));
+      drawCar(mv2, RED);
+      break;
     case 1:
       // Distant and stationary viewpoint
       mv = lookAt(
